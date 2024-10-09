@@ -15,4 +15,4 @@ def press(d):
 
 
 while true:
-listen_keyboard(on_press = press)
+    listen_keyboard(on_press = press)
