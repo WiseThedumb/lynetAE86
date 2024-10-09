@@ -3,13 +3,13 @@ import RPi.GPIO as GPIO
 import time
 from time import sleep
 #h
-SpeedPin = 32 #Højre
-SpeedPin1 = 33 #Venstre
+SpeedPin = 37 #Højre
+SpeedPin1 = 10 #Venstre
 # PWM pins
 
-DirectionPin = 11
+DirectionPin = 32
 DirectionPin1 = 13
-DirectionPin2 = 29
+DirectionPin2 = 3
 DirectionPin3 = 31
 
 linefollower1 = 16
