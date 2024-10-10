@@ -8,8 +8,8 @@ GPIO.setmode(GPIO.BCM)
 motor_pins = {
     'h_front': {'dir': 12, 'ena': 26}, #højre forreste
     'v_b': {'dir': 2, 'ena': 15},
-    'left_rear': {'dir': 23, 'ena': 24},
-    'right_rear': {'dir': 18, 'ena': 1}
+    'h_b': {'dir': 23, 'ena': 24},
+    'v_f': {'dir': 18, 'ena': 1}
 }
 
 
@@ -33,18 +33,18 @@ def set_motor(motor, direction, speed):
     pwm[motor].ChangeDutyCycle(speed)
 
 # 示例：前进，速度50%
-#set_motor('h_front', 'forward', 50) #højre forreste
-#set_motor('v_b', 'forward', 50)
-set_motor('left_rear', 'forward', 50)
-#set_motor('right_rear', 'forward', 50)
+set_motor('h_front', 'forward', 50) #højre forreste
+set_motor('v_b', 'forward', 50)
+set_motor('h_b', 'forward', 50)
+set_motor('v_f', 'forward', 50)
 
 time.sleep(2)
 
 # 示例：后退，速度75%
-#set_motor('h_front', 'backward', 75)
-#set_motor('v_b', 'backward', 75)
-set_motor('left_rear', 'backward', 75)
-#set_motor('right_rear', 'backward', 75)
+set_motor('h_front', 'backward', 75)
+set_motor('v_b', 'backward', 75)
+set_motor('h_b', 'backward', 75)
+set_motor('v_f', 'backward', 75)
 
 time.sleep(2)
 
