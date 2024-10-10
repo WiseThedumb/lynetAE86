@@ -3,8 +3,6 @@ import time
 
 
 GPIO.setmode(GPIO.BCM)
-GPIO.cleanup()
-
 
 motor_pins = {
     'h_front': {'dir': 12, 'ena': 26}, #højre forreste
