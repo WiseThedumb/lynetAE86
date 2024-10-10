@@ -34,17 +34,17 @@ def set_motor(motor, direction, speed):
 
 # 示例：前进，速度50%
 set_motor('left_front', 'forward', 50)
-set_motor('right_front', 'forward', 50)
-set_motor('left_rear', 'forward', 50)
-set_motor('right_rear', 'forward', 50)
+#set_motor('right_front', 'forward', 50)
+#set_motor('left_rear', 'forward', 50)
+#set_motor('right_rear', 'forward', 50)
 
 time.sleep(2)
 
 # 示例：后退，速度75%
 set_motor('left_front', 'backward', 75)
-set_motor('right_front', 'backward', 75)
-set_motor('left_rear', 'backward', 75)
-set_motor('right_rear', 'backward', 75)
+#set_motor('right_front', 'backward', 75)
+#set_motor('left_rear', 'backward', 75)
+#set_motor('right_rear', 'backward', 75)
 
 time.sleep(2)
 
