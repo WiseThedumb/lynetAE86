@@ -74,24 +74,26 @@ GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(linefollower1,GPIO.IN)
 GPIO.setup(linefollower2,GPIO.IN)
+koer()
 
-try:
-   while True:
-        Venstre = int (GPIO.input(linefollower1))
-        print(Venstre)
-        Højre = int (GPIO.input(linefollower2))
-        print(Højre)
-        if (Venstre == 1 and Højre == 1):
-            koer()
-        elif(Venstre == 1 and Højre == 0):
-            dhoej()
-        elif(Venstre == 0 and Højre == 0):
-            koer()
-        elif(Venstre == 0 and Højre == 1):
-            dven()
-        else:
-            koer()
-            print("FEJL")
-except KeyboardInterrupt:
-  pass
+#try:
+ # while True:
+  #      Venstre = int (GPIO.input(linefollower1))
+   #    print(Venstre)
+    #    Højre = int (GPIO.input(linefollower2))
+     #   print(Højre)
+      #  if (Venstre == 1 and Højre == 1):
+       #     koer()
+        #elif(Venstre == 1 and Højre == 0):
+         #   dhoej()
+        #elif(Venstre == 0 and Højre == 0):
+           # koer()
+        #elif(Venstre == 0 and Højre == 1):
+            #dven()
+        #else:
+           #koer()
+            #print("FEJL")
+#except KeyboardInterrupt:
+  #pass
+
 GPIO.cleanup()
