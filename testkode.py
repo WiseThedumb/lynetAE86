@@ -38,7 +38,7 @@ def set_motor(motor, direction, speed):
 #set_motor('h_b', 'forward', 50)
 set_motor('v_f', 'forward', 50)
 
-time.sleep(20)
+time.sleep(10)
 
 
 #set_motor('h_front', 'backward', 75)
