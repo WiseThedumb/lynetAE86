@@ -13,7 +13,7 @@ motor_pins = {
     'v_f': {'dir': 4, 'ena': 1},
 }
 
-for motor, pins in motor_pins.items():
+for motor, pins in motor_pins.values():
     GPIO.setup(pins['dir'], GPIO.OUT)
     GPIO.setup(pins['ena'], GPIO.OUT)
 
