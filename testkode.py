@@ -6,7 +6,7 @@ GPIO.setmode(GPIO.BCM)
 
 # 定义GPIO引脚
 motor_pins = {
-    'left_front': {'dir': 12, 'ena': 26},
+    'h_front': {'dir': 12, 'ena': 26}, #højre forreste
     'right_front': {'dir': 2, 'ena': 15},
     'left_rear': {'dir': 23, 'ena': 24},
     'right_rear': {'dir': 18, 'ena': 1}
@@ -33,16 +33,16 @@ def set_motor(motor, direction, speed):
     pwm[motor].ChangeDutyCycle(speed)
 
 # 示例：前进，速度50%
-set_motor('left_front', 'forward', 50)
-#set_motor('right_front', 'forward', 50)
+#set_motor('h_front', 'forward', 50) #højre forreste
+set_motor('right_front', 'forward', 50)
 #set_motor('left_rear', 'forward', 50)
 #set_motor('right_rear', 'forward', 50)
 
 time.sleep(2)
 
 # 示例：后退，速度75%
-set_motor('left_front', 'backward', 75)
-#set_motor('right_front', 'backward', 75)
+#set_motor('h_front', 'backward', 75)
+set_motor('right_front', 'backward', 75)
 #set_motor('left_rear', 'backward', 75)
 #set_motor('right_rear', 'backward', 75)
 
