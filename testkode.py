@@ -41,7 +41,7 @@ time.sleep(20)
 
 
 set_motor('h_front', 'backward', 75)
-set_motor('v_b', 'backward', 75)
+set_motor('v_b', 'forward', 75)
 set_motor('h_b', 'backward', 75)
 set_motor('v_f', 'backward', 75)
 
