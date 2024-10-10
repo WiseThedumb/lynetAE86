@@ -12,16 +12,22 @@ motor_pins = {
     'h_b': {'dir': 23, 'ena': 24},
     'v_f': {'dir': 4, 'ena': 1},
 }
-
 for motor in motor_pins.values():
     GPIO.setup(motor['dir'], GPIO.OUT)
     GPIO.setup(motor['ena'], GPIO.OUT)
-
-
 pwm = {}
 for motor, pins in motor_pins.items():
-    pwm[motor] = GPIO.PWM(pins['ena'], 100)  
-    pwm[motor].start(0) 
+    pwm[motor] = GPIO.PWM(pins['ena'], 100)  # 频率设置为100Hz
+    pwm[motor].start(0)  # 初始占空比为0
+
+# 定义电机控制函数
+def set_motor(motor, direction, speed):
+    if direction == 'forward':
+        GPIO.output(motor_pins[motor]['dir'], GPIO.HIGH)
+    elif direction == 'backward':
+        GPIO.output(motor_pins[motor]['dir'], GPIO.LOW)
+    
+    pwm[motor].ChangeDutyCycle(speed)
 
 
 
