@@ -34,9 +34,9 @@ def set_motor(motor, direction, speed):
 
 # 示例：前进，速度50%
 set_motor('h_front', 'forward', 50) #højre forreste
-set_motor('v_b', 'forward', 50)
+set_motor('v_b', 'backward', 50)
 set_motor('h_b', 'forward', 50)
-set_motor('v_f', 'forward', 50)
+set_motor('v_f', 'backward', 50)
 
 time.sleep(2)
 
