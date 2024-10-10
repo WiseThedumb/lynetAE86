@@ -9,7 +9,7 @@ motor_pins = {
     'h_front': {'dir': 12, 'ena': 26}, #højre forreste
     'v_b': {'dir': 2, 'ena': 15},
     'h_b': {'dir': 23, 'ena': 24},
-    'v_f': {'dir': 3, 'ena': 1},
+    'v_f': {'dir': 4, 'ena': 1},
 }
 
 
