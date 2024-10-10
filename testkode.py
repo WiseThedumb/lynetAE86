@@ -6,13 +6,13 @@ GPIO.setmode(GPIO.BCM)
 
 # 定义GPIO引脚
 motor_pins = {
-    'left_front': {'dir': 32, 'ena': 37},
-    'right_front': {'dir': 3, 'ena': 10},
-    'left_rear': {'dir': 16, 'ena': 14},
-    'right_rear': {'dir': 12, 'ena': 28}
+    'left_front': {'dir': 12, 'ena': 26},
+    'right_front': {'dir': 2, 'ena': 15},
+    'left_rear': {'dir': 23, 'ena': 24},
+    'right_rear': {'dir': 18, 'ena': 1}
 }
 
-# 设置GPIO引脚为输出模式
+
 for motor in motor_pins.values():
     GPIO.setup(motor['dir'], GPIO.OUT)
     GPIO.setup(motor['ena'], GPIO.OUT)
