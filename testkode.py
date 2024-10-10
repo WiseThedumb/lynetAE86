@@ -15,7 +15,7 @@ motor_pins = {
 
 pwm = {}
 for motor, pins in motor_pins.values():
-    pwm[motor] = GPIO.PWM(pins["ena"], 100)
+    pwm[motor] = GPIO.PWM(pins['ena'], 100)
     pwm[motor].start[0]
     GPIO.setup(motor['dir'], GPIO.OUT)
     GPIO.setup(motor['ena'], GPIO.OUT)
