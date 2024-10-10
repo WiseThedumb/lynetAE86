@@ -1,99 +1,55 @@
-#sensor testdewdee21eqwe
 import RPi.GPIO as GPIO
 import time
-from time import sleep
-#h
-SpeedPin = 37 #Højre
-SpeedPin1 = 10 #Venstre
-# PWM pins
 
-DirectionPin = 32
-DirectionPin1 = 16
-DirectionPin2 = 3
-DirectionPin3 = 12
+# 设置GPIO模式
+GPIO.setmode(GPIO.BCM)
 
-linefollower1 = 16
-linefollower2 = 18
+# 定义GPIO引脚
+motor_pins = {
+    'left_front': {'dir': 32, 'ena': 37},
+    'right_front': {'dir': 3, 'ena': 10},
+    'left_rear': {'dir': 16, 'ena': 14},
+    'right_rear': {'dir': 12, 'ena': 28}
+}
 
-GPIO.setwarnings(False)			#disable warnings
-GPIO.setmode(GPIO.BOARD)	#set pin numbering system
+# 设置GPIO引脚为输出模式
+for motor in motor_pins.values():
+    GPIO.setup(motor['dir'], GPIO.OUT)
+    GPIO.setup(motor['ena'], GPIO.OUT)
 
-GPIO.cleanup()
+# 初始化PWM
+pwm = {}
+for motor, pins in motor_pins.items():
+    pwm[motor] = GPIO.PWM(pins['ena'], 100)  # 频率设置为100Hz
+    pwm[motor].start(0)  # 初始占空比为0
 
-GPIO.setup(SpeedPin,GPIO.OUT)
-GPIO.setup(SpeedPin1,GPIO.OUT)
-
-GPIO.setup(DirectionPin,GPIO.OUT)
-GPIO.setup(DirectionPin1,GPIO.OUT)
-GPIO.setup(DirectionPin2,GPIO.OUT)
-GPIO.setup(DirectionPin3,GPIO.OUT)
-
-pi_pwm = GPIO.PWM(SpeedPin,1000)		#create PWM instance with frequency
-pi_pwm.start(0)
-
-pi_pwm1 = GPIO.PWM(SpeedPin1,1000)		#create PWM instance with frequency
-pi_pwm1.start(0)			
-
-def koer():
-    GPIO.output(DirectionPin, True)
-    GPIO.output(DirectionPin1, True)			
-
-    GPIO.output(DirectionPin2, True)
-    GPIO.output(DirectionPin3, True)
+# 定义电机控制函数
+def set_motor(motor, direction, speed):
+    if direction == 'forward':
+        GPIO.output(motor_pins[motor]['dir'], GPIO.HIGH)
+    elif direction == 'backward':
+        GPIO.output(motor_pins[motor]['dir'], GPIO.LOW)
     
-    pi_pwm.ChangeDutyCycle(95) #45 #70
-    pi_pwm1.ChangeDutyCycle(100) #50 #80
-    #sleep(0.1)
+    pwm[motor].ChangeDutyCycle(speed)
 
-def dven():
-    GPIO.output(DirectionPin, False)
-    GPIO.output(DirectionPin1, False)			
+# 示例：前进，速度50%
+set_motor('left_front', 'forward', 50)
+set_motor('right_front', 'forward', 50)
+set_motor('left_rear', 'forward', 50)
+set_motor('right_rear', 'forward', 50)
 
-    GPIO.output(DirectionPin2, True)
-    GPIO.output(DirectionPin3, True)
+time.sleep(2)
 
-    pi_pwm.ChangeDutyCycle(80) #50 #80
-    pi_pwm1.ChangeDutyCycle(100) #50 #100
-    sleep(0.05)
+# 示例：后退，速度75%
+set_motor('left_front', 'backward', 75)
+set_motor('right_front', 'backward', 75)
+set_motor('left_rear', 'backward', 75)
+set_motor('right_rear', 'backward', 75)
 
+time.sleep(2)
 
-def dhoej():
-    GPIO.output(DirectionPin, True)
-    GPIO.output(DirectionPin1, True)			
-
-    GPIO.output(DirectionPin2, False)
-    GPIO.output(DirectionPin3, False)
-
-    pi_pwm.ChangeDutyCycle(80) #50 #100
-    pi_pwm1.ChangeDutyCycle(100) #50 #80
-    sleep(0.05)
-
-
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-
-GPIO.setup(linefollower1,GPIO.IN)
-GPIO.setup(linefollower2,GPIO.IN)
-koer()
-
-#try:
- # while True:
-  #      Venstre = int (GPIO.input(linefollower1))
-   #    print(Venstre)
-    #    Højre = int (GPIO.input(linefollower2))
-     #   print(Højre)
-      #  if (Venstre == 1 and Højre == 1):
-       #     koer()
-        #elif(Venstre == 1 and Højre == 0):
-         #   dhoej()
-        #elif(Venstre == 0 and Højre == 0):
-           # koer()
-        #elif(Venstre == 0 and Højre == 1):
-            #dven()
-        #else:
-           #koer()
-            #print("FEJL")
-#except KeyboardInterrupt:
-  #pass
+# 停止电机
+for motor in motor_pins.keys():
+    pwm[motor].ChangeDutyCycle(0)
 
 GPIO.cleanup()
