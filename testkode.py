@@ -14,12 +14,9 @@ motor_pins = {
 }
 
 pwm = {}
-for motor, pins in motor_pins.values():
-    pwm[motor] = GPIO.PWM(pins['ena'], 100)
-    pwm[motor].start[0]
-    GPIO.setup(motor['dir'], GPIO.OUT)
-    GPIO.setup(motor['ena'], GPIO.OUT)
-
+for motor, pins in motor_pins.items():
+    pwm[motor] = GPIO.PWM(pins['ena'], 100)  # 频率设置为100Hz
+    pwm[motor].start(0)
 
 def set_motor(motor, direction, speed):
     if direction == 'forward':
