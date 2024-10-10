@@ -38,7 +38,7 @@ set_motor('v_b', 'backward', 50)
 set_motor('h_b', 'forward', 50)
 set_motor('v_f', 'backward', 50)
 
-time.sleep(2)
+time.sleep(20)
 
 # 示例：后退，速度75%
 set_motor('h_front', 'backward', 75)
