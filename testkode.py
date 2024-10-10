@@ -8,9 +8,9 @@ SpeedPin1 = 10 #Venstre
 # PWM pins
 
 DirectionPin = 32
-DirectionPin1 = 13
+DirectionPin1 = 16
 DirectionPin2 = 3
-DirectionPin3 = 31
+DirectionPin3 = 12
 
 linefollower1 = 16
 linefollower2 = 18
