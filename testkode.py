@@ -9,7 +9,7 @@ motor_pins = {
     'h_front': {'dir': 12, 'ena': 26}, #højre forreste
     'v_b': {'dir': 2, 'ena': 15},
     'h_b': {'dir': 23, 'ena': 24},
-    'v_f': {'dir': 3, 'ena': 1}
+    'v_f': {'dir': 3, 'ena': 1},
 }
 
 
@@ -33,9 +33,9 @@ def set_motor(motor, direction, speed):
     pwm[motor].ChangeDutyCycle(speed)
 
 set_motor('h_front', 'forward', 50) #højre forreste
-set_motor('v_b', 'backward', 50)
+set_motor('v_b', 'forward', 50)
 set_motor('h_b', 'backward', 50)
-set_motor('v_f', 'forward', 50)
+set_motor('v_f', 'backward', 50)
 
 time.sleep(20)
 
