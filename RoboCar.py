@@ -64,7 +64,7 @@ def press(key):
         'd': Goright
     }
     if key == 'esc':  # press esc to stop
-        exit
+        exit()
 
 
 
