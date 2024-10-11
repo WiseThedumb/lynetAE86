@@ -42,7 +42,7 @@ try:
         left_sensor = GPIO.input(sensor_pins['left'])
         right_sensor = GPIO.input(sensor_pins['right'])
 
-        if left_sensor == 0 and right_sensor == 0:
+        if left_sensor == 1 and right_sensor == 1:
             # 前进
             set_motor('v_f', 'forward', 50)
             set_motor('h_front', 'forward', 50)
