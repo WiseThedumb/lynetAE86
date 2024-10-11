@@ -35,8 +35,8 @@ for motor in motor_pins.values():
 
 pwm = {}
 for motor, pins in motor_pins.items():
-    pwm[motor] = GPIO.PWM(pins['ena'], 100)  # 频率设置为100Hz
-    pwm[motor].start(0)  # 初始占空比为0
+    pwm[motor] = GPIO.PWM(pins['ena'], 100)  
+    pwm[motor].start(0)  
 
 # Motor control functions
 def forward():
@@ -51,8 +51,8 @@ def forward():
 
 def backward():
     GPIO.output(motor_pins['h_front']['dir'], GPIO.LOW)
-    GPIO.output(motor_pins['v_b']['dir'], GPIO.LOW)
-    GPIO.output(motor_pins['h_b']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['v_back']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['h_back']['dir'], GPIO.LOW)
     GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
     pwm['h_front'].ChangeDutyCycle(0)
     pwm['v_back'].ChangeDutyCycle(0)
