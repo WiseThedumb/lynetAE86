@@ -41,7 +41,7 @@ for motor, pins in motor_pins.items():
 # Motor control functions
 def forward():
     GPIO.output(motor_pins['h_front']['dir'], GPIO.HIGH)
-    GPIO.output(motor_pins['v_back']['dir'], GPIO.HIGH)
+    GPIO.output(motor_pins['v_back']['dir'], GPIO.LOW)
     GPIO.output(motor_pins['h_back']['dir'], GPIO.HIGH)
     GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
     pwm['h_front'].ChangeDutyCycle(75)
@@ -62,7 +62,7 @@ def backward():
 def right():
     GPIO.output(motor_pins['h_front']['dir'], GPIO.HIGH)
     GPIO.output(motor_pins['v_back']['dir'], GPIO.LOW)
-    GPIO.output(motor_pins['h_back']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['h_back']['dir'], GPIO.HIGH)
     GPIO.output(motor_pins['v_front']['dir'], GPIO.HIGH)
     pwm['h_front'].ChangeDutyCycle(50)
     pwm['v_back'].ChangeDutyCycle(50)
