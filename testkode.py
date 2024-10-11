@@ -3,6 +3,7 @@ import time
 
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 motor_pins = {
     'h_front': {'dir': 12, 'ena': 26}, #højre forreste
@@ -50,21 +51,21 @@ try:
 
         if left_sensor == 0 and right_sensor == 0:
             # 前进
-            set_motor('left_front', 'forward', 15)
-            set_motor('right_front', 'forward', 15)
-            set_motor('left_rear', 'forward', 15)
-            set_motor('right_rear', 'forward', 15)
+            set_motor('v_f', 'forward', 15)
+            set_motor('h_front', 'forward', 15)
+            set_motor('v_b', 'forward', 15)
+            set_motor('h_b', 'forward', 15)
         elif left_sensor == 1 and right_sensor == 0:
-            set_motor('left_front', 'forward', 15)
-            set_motor('right_front', 'backward', 15)
-            set_motor('left_rear', 'forward', 15)
-            set_motor('right_rear', 'backward', 15)
+            set_motor('v_f', 'forward', 15)
+            set_motor('h_front', 'backward', 15)
+            set_motor('v_b', 'forward', 15)
+            set_motor('h_b', 'backward', 15)
         elif left_sensor == 0 and right_sensor == 1:
             # 向左转
-            set_motor('left_front', 'backward', 15)
-            set_motor('right_front', 'forward', 15)
-            set_motor('left_rear', 'backward', 15)
-            set_motor('right_rear', 'forward', 15)
+            set_motor('v_f', 'backward', 15)
+            set_motor('h_front', 'forward', 15)
+            set_motor('v_b', 'backward', 15)
+            set_motor('h_b', 'forward', 15)
         else:
             # 停止
             for motor in motor_pins.keys():
