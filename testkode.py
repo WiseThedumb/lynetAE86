@@ -37,13 +37,6 @@ def set_motor(motor, direction, speed):
 
 
 
-def set_motor(motor, direction, speed):
-    if direction == 'forward':
-        GPIO.output(motor_pins[motor]['dir'], GPIO.HIGH)
-    elif direction == 'backward':
-        GPIO.output(motor_pins[motor]['dir'], GPIO.LOW)
-    
-    pwm[motor].ChangeDutyCycle(speed)
 try:
     while True:
         left_sensor = GPIO.input(sensor_pins['left'])
