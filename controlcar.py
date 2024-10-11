@@ -54,10 +54,10 @@ def backward():
     GPIO.output(motor_pins['v_back']['dir'], GPIO.LOW)
     GPIO.output(motor_pins['h_back']['dir'], GPIO.LOW)
     GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
-    pwm['h_front'].ChangeDutyCycle(0)
-    pwm['v_back'].ChangeDutyCycle(0)
-    pwm['h_back'].ChangeDutyCycle(0)
-    pwm['v_front'].ChangeDutyCycle(0)
+    pwm['h_front'].ChangeDutyCycle(75)
+    pwm['v_back'].ChangeDutyCycle(75)
+    pwm['h_back'].ChangeDutyCycle(75)
+    pwm['v_front'].ChangeDutyCycle(75)
 
 def right():
     GPIO.output(motor_pins['h_front']['dir'], GPIO.HIGH)
@@ -67,17 +67,17 @@ def right():
     pwm['h_front'].ChangeDutyCycle(50)
     pwm['v_back'].ChangeDutyCycle(50)
     pwm['h_back'].ChangeDutyCycle(50)
-    pwm['v_front'].ChangeDutyCycle(0)
+    pwm['v_front'].ChangeDutyCycle(50)
 
 def left():
     GPIO.output(motor_pins['h_front']['dir'], GPIO.LOW)
     GPIO.output(motor_pins['v_back']['dir'], GPIO.HIGH)
     GPIO.output(motor_pins['h_back']['dir'], GPIO.HIGH)
     GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
-    pwm['h_front'].ChangeDutyCycle(0)
-    pwm['v_back'].ChangeDutyCycle(0)
-    pwm['h_back'].ChangeDutyCycle(0)
-    pwm['v_front'].ChangeDutyCycle(0)
+    pwm['h_front'].ChangeDutyCycle(50)
+    pwm['v_back'].ChangeDutyCycle(50)
+    pwm['h_back'].ChangeDutyCycle(50)
+    pwm['v_front'].ChangeDutyCycle(50)
 
 def stop():
     pwm['h_front'].ChangeDutyCycle(0)
