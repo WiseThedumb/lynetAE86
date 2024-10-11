@@ -1,66 +1,120 @@
-import RPi.GPIO as GPIO
-import time
+
 import pygame
+import time
+import RPi.GPIO as GPIO
 
-# Set up GPIO mode
+# Initialize Pygame and joystick
+pygame.init()
+pygame.joystick.init()
+
+# Check if a controller is connected
+joystick_count = pygame.joystick.get_count()
+if joystick_count > 0:
+    joystick = pygame.joystick.Joystick(0)
+    joystick.init()
+    print("PlayStation controller connected:", joystick.get_name())
+else:
+    print("No controller found")
+    exit()
+
+# Set deadzone value
+DEADZONE = 0.1
+
+# Set up GPIO pins for motor control
 GPIO.setmode(GPIO.BCM)
-
-# Define motor pins
 motor_pins = {
-    'h_front': {'dir': 12, 'ena': 26},  # right front motor
-    'v_b': {'dir': 2, 'ena': 15},
-    'h_b': {'dir': 23, 'ena': 24},
-    'v_f': {'dir': 3, 'ena': 1}
+    'h_front': {'dir': 12, 'ena': 26}, #højre forreste
+    'v_back': {'dir': 2, 'ena': 15},
+    'h_back': {'dir': 23, 'ena': 24},
+    'v_front': {'dir': 4, 'ena': 1},
 }
 
-# Set up GPIO outputs
 for motor in motor_pins.values():
     GPIO.setup(motor['dir'], GPIO.OUT)
     GPIO.setup(motor['ena'], GPIO.OUT)
 
-# Create PWM objects
 pwm = {}
 for motor, pins in motor_pins.items():
-    pwm[motor] = GPIO.PWM(pins['ena'], 100)  # 100 Hz PWM frequency
-    pwm[motor].start(0)  # Initialize PWM with 0% duty cycle
+    pwm[motor] = GPIO.PWM(pins['ena'], 100)  
+    pwm[motor].start(0)  
 
-# Initialize Pygame
-pygame.init()
-pygame.joystick.init()
+# Motor control functions
+def forward():
+    GPIO.output(motor_pins['h_front']['dir'], GPIO.HIGH)
+    GPIO.output(motor_pins['v_back']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['h_back']['dir'], GPIO.HIGH)
+    GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
+    pwm['h_front'].ChangeDutyCycle(75)
+    pwm['v_back'].ChangeDutyCycle(75)
+    pwm['h_back'].ChangeDutyCycle(75)
+    pwm['v_front'].ChangeDutyCycle(75)
 
-# Get the joystick object
-joystick = pygame.joystick.Joystick(0)
-joystick.init()
+def backward():
+    GPIO.output(motor_pins['h_front']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['v_back']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['h_back']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
+    pwm['h_front'].ChangeDutyCycle(0)
+    pwm['v_back'].ChangeDutyCycle(0)
+    pwm['h_back'].ChangeDutyCycle(0)
+    pwm['v_front'].ChangeDutyCycle(0)
 
-# Define a function to drive the motors
-def drive_motors(x_axis, y_axis):
-    # Map the joystick axis values to motor speeds
-    speed = int((x_axis + 1) * 50)  # Map x-axis to 0-100% speed
-    direction = 'forward' if y_axis > 0 else 'backward'
+def right():
+    GPIO.output(motor_pins['h_front']['dir'], GPIO.HIGH)
+    GPIO.output(motor_pins['v_back']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['h_back']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['v_front']['dir'], GPIO.HIGH)
+    pwm['h_front'].ChangeDutyCycle(0)
+    pwm['v_back'].ChangeDutyCycle(0)
+    pwm['h_back'].ChangeDutyCycle(0)
+    pwm['v_front'].ChangeDutyCycle(0)
 
-    # Set the motor directions and speeds
-    for motor in motor_pins.keys():
-        if direction == 'forward':
-            GPIO.output(motor_pins[motor]['dir'], GPIO.HIGH)
-        else:
-            GPIO.output(motor_pins[motor]['dir'], GPIO.LOW)
-        pwm[motor].ChangeDutyCycle(speed)
+def left():
+    GPIO.output(motor_pins['h_front']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['v_back']['dir'], GPIO.HIGH)
+    GPIO.output(motor_pins['h_back']['dir'], GPIO.HIGH)
+    GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
+    pwm['h_front'].ChangeDutyCycle(0)
+    pwm['v_back'].ChangeDutyCycle(0)
+    pwm['h_back'].ChangeDutyCycle(0)
+    pwm['v_front'].ChangeDutyCycle(0)
+
+def stop():
+    pwm['h_front'].ChangeDutyCycle(0)
+    pwm['v_back'].ChangeDutyCycle(0)
+    pwm['h_back'].ChangeDutyCycle(0)
+    pwm['v_front'].ChangeDutyCycle(0)
 
 # Main loop
-while True:
-    # Read the joystick axis values
-    x_axis = joystick.get_axis(0)
-    y_axis = joystick.get_axis(1)
+running = True
+while running:
+    for event in pygame.event.get():  # Get events from joystick
+        if event.type == pygame.JOYAXISMOTION:
+            pass
 
-    # Drive the motors based on the joystick input
-    drive_motors(x_axis, y_axis)
+    # Read joystick inputs
+    x_axis = joystick.get_axis(0)  # Left stick, X-axis
+    y_axis = joystick.get_axis(1)  # Left stick, Y-axis
 
-    # Update the Pygame event queue
-    pygame.event.pump()
+    # Control the car's movement based on joystick inputs
+    if abs(y_axis) > DEADZONE:
+        if y_axis < 0:
+            forward()  # Move forward
+        elif y_axis > 0:
+            backward()  # Move backward
+    else:
+        stop()  # Stop the car
 
-    # Limit the loop to 60 Hz
-    time.sleep(1/60)
+    if abs(x_axis) > DEADZONE:
+        if x_axis > 0:
+            right()  # Turn right
+        elif x_axis < 0:
+            left()  # Turn left
+    else:
+        stop()  # Stop the car
 
-# Clean up
-GPIO.cleanup()
+    # Add a delay to avoid flooding the console
+    time.sleep(0.1)
+
 pygame.quit()
+GPIO.cleanup()
