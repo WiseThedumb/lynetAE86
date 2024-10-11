@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from sshkeyboard import listen_keyboard
-
+GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 
 motor_pins = {
@@ -70,7 +70,5 @@ def press(key):
 
 
 
-for motor in motor_pins.keys():
-    pwm[motor].ChangeDutyCycle(0)
-listen_keyboard(on_press=press)
-GPIO.cleanup()
+while True:
+    listen_keyboard(on_press=press)
