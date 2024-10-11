@@ -29,13 +29,7 @@ def set_motor(motor, direction, speed):
 
 
 
-def set_motor(motor, direction, speed):
-    if direction == 'forward':
-        GPIO.output(motor_pins[motor]['dir'], GPIO.HIGH)
-    elif direction == 'backward':
-        GPIO.output(motor_pins[motor]['dir'], GPIO.LOW)
-    
-    pwm[motor].ChangeDutyCycle(speed)
+
 def Goforward():
     print("going forward")
     set_motor('h_front', 'forward', 50) 
