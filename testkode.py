@@ -44,10 +44,10 @@ try:
 
         if left_sensor == 0 and right_sensor == 0:
             # 前进
-            set_motor('v_f', 'forward', 15)
-            set_motor('h_front', 'forward', 15)
-            set_motor('v_b', 'forward', 15)
-            set_motor('h_b', 'forward', 15)
+            set_motor('left_front', 'forward', 15)
+            set_motor('right_front', 'forward', 15)
+            set_motor('left_rear', 'forward', 15)
+            set_motor('right_rear', 'forward', 15)
         elif left_sensor == 1 and right_sensor == 0:
             set_motor('v_f', 'forward', 15)
             set_motor('h_front', 'backward', 15)
