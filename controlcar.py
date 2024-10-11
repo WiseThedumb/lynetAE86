@@ -43,7 +43,7 @@ def forward():
     GPIO.output(motor_pins['h_front']['dir'], GPIO.HIGH)
     GPIO.output(motor_pins['v_back']['dir'], GPIO.HIGH)
     GPIO.output(motor_pins['h_back']['dir'], GPIO.HIGH)
-    GPIO.output(motor_pins['v_front']['dir'], GPIO.LOW)
+    GPIO.output(motor_pins['v_front']['dir'], GPIO.HIGH)
     pwm['h_front'].ChangeDutyCycle(75)
     pwm['v_back'].ChangeDutyCycle(75)
     pwm['h_back'].ChangeDutyCycle(75)
