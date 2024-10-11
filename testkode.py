@@ -10,9 +10,16 @@ motor_pins = {
     'h_b': {'dir': 23, 'ena': 24},
     'v_f': {'dir': 4, 'ena': 1},
 }
+sensor_pins = {
+    'left': 5,
+    'right': 6
+}
+for sensor in sensor_pins.values():
+    GPIO.setup(sensor, GPIO.IN)
 for motor in motor_pins.values():
     GPIO.setup(motor['dir'], GPIO.OUT)
     GPIO.setup(motor['ena'], GPIO.OUT)
+
 pwm = {}
 for motor, pins in motor_pins.items():
     pwm[motor] = GPIO.PWM(pins['ena'], 100)  # 频率设置为100Hz
@@ -36,24 +43,36 @@ def set_motor(motor, direction, speed):
         GPIO.output(motor_pins[motor]['dir'], GPIO.LOW)
     
     pwm[motor].ChangeDutyCycle(speed)
+try:
+    while True:
+        left_sensor = GPIO.input(sensor_pins['left'])
+        right_sensor = GPIO.input(sensor_pins['right'])
 
-set_motor('h_front', 'forward', 50) #højre forreste
-set_motor('v_b', 'forward', 50)
-set_motor('h_b', 'forward', 50)
-set_motor('v_f', 'forward', 50)
+        if left_sensor == 0 and right_sensor == 0:
+            # 前进
+            set_motor('left_front', 'forward', 15)
+            set_motor('right_front', 'forward', 15)
+            set_motor('left_rear', 'forward', 15)
+            set_motor('right_rear', 'forward', 15)
+        elif left_sensor == 1 and right_sensor == 0:
+            set_motor('left_front', 'forward', 15)
+            set_motor('right_front', 'backward', 15)
+            set_motor('left_rear', 'forward', 15)
+            set_motor('right_rear', 'backward', 15)
+        elif left_sensor == 0 and right_sensor == 1:
+            # 向左转
+            set_motor('left_front', 'backward', 15)
+            set_motor('right_front', 'forward', 15)
+            set_motor('left_rear', 'backward', 15)
+            set_motor('right_rear', 'forward', 15)
+        else:
+            # 停止
+            for motor in motor_pins.keys():
+                pwm[motor].ChangeDutyCycle(0)
 
-time.sleep(10)
+        time.sleep(0.1)
 
-
-set_motor('h_front', 'backward', 75)
-set_motor('v_b', 'backward', 75)
-set_motor('h_b', 'backward', 75)
-set_motor('v_f', 'backward', 75)
-
-time.sleep(2)
-
-
-for motor in motor_pins.keys():
-    pwm[motor].ChangeDutyCycle(0)
+except KeyboardInterrupt:
+    pass
 
 GPIO.cleanup()
