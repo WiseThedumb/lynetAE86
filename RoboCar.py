@@ -32,10 +32,10 @@ def set_motor(motor, direction, speed):
 
 def Goforward():
     print("going forward")
-    set_motor('h_front', 'forward', 50) 
-    set_motor('v_b', 'forward', 50)
-    set_motor('h_b', 'forward', 50)
-    set_motor('v_f', 'forward', 50)
+    set_motor('h_front', 'forward', 100) 
+    set_motor('v_b', 'forward', 100)
+    set_motor('h_b', 'forward', 100)
+    set_motor('v_f', 'forward', 100)
 
 def Gobackward():
     print ("Going Backwards")
