@@ -37,7 +37,7 @@ pwm = {}
 for motor, pins in motor_pins.items():
     pwm[motor] = GPIO.PWM(pins['ena'], 100)  
     pwm[motor].start(0)  
-
+#h
 # Motor control functions
 def forward():
     GPIO.output(motor_pins['h_front']['dir'], GPIO.HIGH)
