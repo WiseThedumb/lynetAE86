@@ -38,7 +38,7 @@ def set_motor(motor, direction, speed):
     pwm[motor].ChangeDutyCycle(speed)
 def Goforward():
     print("going forward")
-    set_motor('h_front', 'backward', 75) 
+    set_motor('h_front', 'forward', 75) 
     set_motor('v_b', 'forward', 75)
     set_motor('h_b', 'forward', 75)
     set_motor('v_f', 'forward', 75)
