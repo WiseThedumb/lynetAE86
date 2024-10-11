@@ -32,11 +32,13 @@ pygame.joystick.init()
 joystick = pygame.joystick.Joystick(0)
 joystick.init()
 
+DEADZONE = 0.1
+
 # Define a function to drive the motors
 def drive_motors(x_axis, y_axis):
     # Map the joystick axis values to motor speeds
     speed = int((x_axis + 1) * 50)  # Map x-axis to 0-100% speed
-    direction = 'forward' if y_axis > 0 else 'backward'
+    direction = 'forward' if y_axis > DEADZONE else 'backward'
 
     # Set the motor directions and speeds
     for motor in motor_pins.keys():
