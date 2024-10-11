@@ -63,8 +63,10 @@ def press(key):
         'a': Goleft,
         'd': Goright
     }
-    if key == 'esc':  # press esc to stop
-        exit()
+    if key in switch:
+        switch[key]()
+    elif key == 'esc':  # press esc to stop
+        return False
 
 
 
