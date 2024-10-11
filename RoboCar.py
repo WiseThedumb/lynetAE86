@@ -52,14 +52,14 @@ def Gobackward():
 def Goleft():
     print ("Going Left")
     set_motor('h_front', 'forward', 60)
-    set_motor('v_b', 'backward', 20)
+    set_motor('v_b', 'forward', 40)
     set_motor('h_b', 'forward', 60)
-    set_motor('v_f', 'backward', 20)
+    set_motor('v_f', 'backward', 40)
 def Goright():
     print ("Going Right")
-    set_motor('h_front', 'backward', 20) 
-    set_motor('v_b', 'forward', 60)
-    set_motor('h_b', 'backward', 20)
+    set_motor('h_front', 'backward', 40) 
+    set_motor('v_b', 'backward', 60)
+    set_motor('h_b', 'backward', 40)
     set_motor('v_f', 'forward', 60)
 
 def press(key):
