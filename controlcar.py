@@ -45,22 +45,21 @@ while running:
     x_axis = joystick.get_axis(0)  # Left stick, X-axis
     y_axis = joystick.get_axis(1)  # Left stick, Y-axis
 
-    # Control the car's movement based on joystick inputs
-    if abs(y_axis) > DEADZONE:
-        if y_axis < 0:
-            forward()  # Move forward
-        elif y_axis > 0:
-            backward()  # Move backward
+    # Check if joystick axes are within deadzone range
+    if abs(x_axis) <= DEADZONE and abs(y_axis) <= DEADZONE:
+        stop()  # Stop the car if joystick is not moved
     else:
-        stop()  # Stop the car
-
-    if abs(x_axis) > DEADZONE:
-        if x_axis > 0:
-            right()  # Turn right
-        elif x_axis < 0:
-            left()  # Turn left
-    else:
-        stop()  # Stop the car
+        # Control the car's movement based on joystick inputs
+        if abs(y_axis) > DEADZONE:
+            if y_axis < 0:
+                forward()  # Move forward
+            elif y_axis > 0:
+                backward()  # Move backward
+        if abs(x_axis) > DEADZONE:
+            if x_axis > 0:
+                right()  # Turn right
+            elif x_axis < 0:
+                left()  # Turn left
 
     # Add a delay to avoid flooding the console
     time.sleep(0.1)
