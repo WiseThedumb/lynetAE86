@@ -44,21 +44,21 @@ try:
 
         if left_sensor == 0 and right_sensor == 0:
             # 前进
-            set_motor('v_f', 'forward', 20)
-            set_motor('h_front', 'forward', 20)
-            set_motor('v_b', 'forward', 20)
-            set_motor('h_b', 'forward', 20)
+            set_motor('v_f', 'forward', 50)
+            set_motor('h_front', 'forward', 50)
+            set_motor('v_b', 'forward', 50)
+            set_motor('h_b', 'forward', 50)
         elif left_sensor == 1 and right_sensor == 0:
-            set_motor('v_f', 'forward', 20)
-            set_motor('h_front', 'backward', 20)
-            set_motor('v_b', 'forward', 20)
-            set_motor('h_b', 'backward', 20)
+            set_motor('v_f', 'forward', 50)
+            set_motor('h_front', 'backward', 50)
+            set_motor('v_b', 'forward', 50)
+            set_motor('h_b', 'backward', 50)
         elif left_sensor == 0 and right_sensor == 1:
             # 向左转
-            set_motor('v_f', 'backward', 20)
-            set_motor('h_front', 'forward', 20)
-            set_motor('v_b', 'backward', 20)
-            set_motor('h_b', 'forward', 20)
+            set_motor('v_f', 'backward', 50)
+            set_motor('h_front', 'forward', 50)
+            set_motor('v_b', 'backward', 50)
+            set_motor('h_b', 'forward', 50)
         else:
             # 停止
             for motor in motor_pins.keys():
