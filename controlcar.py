@@ -1,5 +1,6 @@
 import pygame
 import time
+import RPi.GPIO as GPIO
 
 # Initialize Pygame and joystick
 pygame.init()
@@ -18,21 +19,43 @@ else:
 # Set deadzone value
 DEADZONE = 0.1
 
+# Set up GPIO pins for motor control
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT)  # Motor 1 forward
+GPIO.setup(23, GPIO.OUT)  # Motor 1 backward
+GPIO.setup(24, GPIO.OUT)  # Motor 2 forward
+GPIO.setup(25, GPIO.OUT)  # Motor 2 backward
+
 # Motor control functions
 def forward():
-    print("Moving forward")
+    GPIO.output(17, GPIO.HIGH)
+    GPIO.output(23, GPIO.LOW)
+    GPIO.output(24, GPIO.HIGH)
+    GPIO.output(25, GPIO.LOW)
 
 def backward():
-    print("Moving backward")
+    GPIO.output(17, GPIO.LOW)
+    GPIO.output(23, GPIO.HIGH)
+    GPIO.output(24, GPIO.LOW)
+    GPIO.output(25, GPIO.HIGH)
 
 def right():
-    print("Turning right")
+    GPIO.output(17, GPIO.HIGH)
+    GPIO.output(23, GPIO.LOW)
+    GPIO.output(24, GPIO.LOW)
+    GPIO.output(25, GPIO.HIGH)
 
 def left():
-    print("Turning left")
+    GPIO.output(17, GPIO.LOW)
+    GPIO.output(23, GPIO.HIGH)
+    GPIO.output(24, GPIO.HIGH)
+    GPIO.output(25, GPIO.LOW)
 
 def stop():
-    print("Stopping")
+    GPIO.output(17, GPIO.LOW)
+    GPIO.output(23, GPIO.LOW)
+    GPIO.output(24, GPIO.LOW)
+    GPIO.output(25, GPIO.LOW)
 
 # Main loop
 running = True
@@ -45,23 +68,25 @@ while running:
     x_axis = joystick.get_axis(0)  # Left stick, X-axis
     y_axis = joystick.get_axis(1)  # Left stick, Y-axis
 
-    # Check if joystick axes are within deadzone range
-    if abs(x_axis) <= DEADZONE and abs(y_axis) <= DEADZONE:
-        stop()  # Stop the car if joystick is not moved
+    # Control the car's movement based on joystick inputs
+    if abs(y_axis) > DEADZONE:
+        if y_axis < 0:
+            forward()  # Move forward
+        elif y_axis > 0:
+            backward()  # Move backward
     else:
-        # Control the car's movement based on joystick inputs
-        if abs(y_axis) > DEADZONE:
-            if y_axis < 0:
-                forward()  # Move forward
-            elif y_axis > 0:
-                backward()  # Move backward
-        if abs(x_axis) > DEADZONE:
-            if x_axis > 0:
-                right()  # Turn right
-            elif x_axis < 0:
-                left()  # Turn left
+        stop()  # Stop the car
+
+    if abs(x_axis) > DEADZONE:
+        if x_axis > 0:
+            right()  # Turn right
+        elif x_axis < 0:
+            left()  # Turn left
+    else:
+        stop()  # Stop the car
 
     # Add a delay to avoid flooding the console
     time.sleep(0.1)
 
 pygame.quit()
+GPIO.cleanup()
