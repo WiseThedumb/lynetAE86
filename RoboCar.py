@@ -41,7 +41,7 @@ def Goforward():
     set_motor('h_front', 'forward', 50) 
     set_motor('v_b', 'forward', 50)
     set_motor('h_b', 'forward', 50)
-    set_motor('v_f', 'forward', 505)
+    set_motor('v_f', 'forward', 50)
 
 def Gobackward():
     print ("Going Backwards")
