@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from sshkeyboard import listen_keyboard
-
+GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 
 motor_pins = {
@@ -29,36 +29,30 @@ def set_motor(motor, direction, speed):
 
 
 
-def set_motor(motor, direction, speed):
-    if direction == 'forward':
-        GPIO.output(motor_pins[motor]['dir'], GPIO.HIGH)
-    elif direction == 'backward':
-        GPIO.output(motor_pins[motor]['dir'], GPIO.LOW)
-    
-    pwm[motor].ChangeDutyCycle(speed)
+
 def Goforward():
     print("going forward")
-    set_motor('h_front', 'forward', 75) 
-    set_motor('v_b', 'backward', 75)
-    set_motor('h_b', 'forward', 75)
-    set_motor('v_f', 'forward', 75)
+    set_motor('h_front', 'forward', 50) 
+    set_motor('v_b', 'forward', 50)
+    set_motor('h_b', 'forward', 50)
+    set_motor('v_f', 'forward', 50)
 
 def Gobackward():
     print ("Going Backwards")
-    set_motor('h_front', 'backward', 75)
-    set_motor('v_b', 'forward', 75)
-    set_motor('h_b', 'backward', 75)
-    set_motor('v_f', 'backward', 75)
+    set_motor('h_front', 'backward', 50)
+    set_motor('v_b', 'backward', 50)
+    set_motor('h_b', 'backward', 50)
+    set_motor('v_f', 'backward', 50)
 def Goleft():
     print ("Going Left")
     set_motor('h_front', 'forward', 60)
-    set_motor('v_b', 'forward', 40)
+    set_motor('v_b', 'backward', 40)
     set_motor('h_b', 'forward', 60)
     set_motor('v_f', 'backward', 40)
 def Goright():
     print ("Going Right")
     set_motor('h_front', 'backward', 40) 
-    set_motor('v_b', 'backward', 60)
+    set_motor('v_b', 'forward', 60)
     set_motor('h_b', 'backward', 40)
     set_motor('v_f', 'forward', 60)
 
@@ -76,7 +70,5 @@ def press(key):
 
 
 
-for motor in motor_pins.keys():
-    pwm[motor].ChangeDutyCycle(0)
-listen_keyboard(on_press=press)
-GPIO.cleanup()
+while True:
+    listen_keyboard(on_press=press)
